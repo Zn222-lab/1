@@ -11,13 +11,11 @@ import warnings
 
 warnings.filterwarnings('ignore')
 
-
 # 打印内存使用情况
 def print_memory_usage():
     process = psutil.Process(os.getpid())
     mem = process.memory_info().rss / (1024 ** 3)
     print(f"当前内存使用: {mem:.2f} GB")
-
 
 # 1. 数据加载优化
 print("开始加载数据...")
@@ -30,8 +28,7 @@ file_paths = {
     "test": os.path.join(data_dir, "test_format1.csv")
 }
 
-
-# 加载数据函数（优化版）
+# 加载数据函数
 def load_data():
     # 用户画像
     user_info = pd.read_csv(file_paths["user_info"], dtype={
@@ -54,7 +51,7 @@ def load_data():
         'merchant_id': 'int32'
     })
 
-    # 用户日志（分块加载）
+    # 用户日志
     chunks = []
     for chunk in pd.read_csv(file_paths["user_log"], chunksize=1000000, dtype={
         'user_id': 'int32',
